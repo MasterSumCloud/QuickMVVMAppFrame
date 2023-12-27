@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <!--设置高度,注意要设置宽度-->
+            <size
+                android:width="16dp"
+                android:height="16dp" />
+            <!--设置弧度-->
+            <corners android:radius="8dp" />
+            <!--设置渐变,两个颜色一样则没有渐变效果-->
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+
+    <item android:gravity="center">
+        <shape android:shape="rectangle">
+            <size
+                android:width="6dp"
+                android:height="6dp" />
+            <!--设置弧度-->
+            <corners android:radius="6dp" />
+
+            <solid android:color="#AF5CFC" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="DialogTipTheme">
+        <item name="android:windowFrame">@null</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/trans</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="Pay_check_box" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/blue_3F74F6</item>
+        <item name="android:colorControlNormal">@color/gray_C6C5CC</item>
+    </style>
+    <style name="Login_check_box" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/blue_3F74F6</item>
+        <item name="android:colorControlNormal">@color/gray_767887</item>
+    </style>
+    <style name="Vip_check_box" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/purple_8D78FA</item>
+        <item name="android:colorControlNormal">@color/gray_767887</item>
+    </style>
+
+    <style name="VipCheckBox" parent="Theme.AppCompat.Light">
+        <item name="android:colorControlActivated">@color/red_FB4447</item>
+        <item name="android:colorControlNormal">@color/gray_C6C5CC</item>
+    </style>
+
+    <declare-styleable name="RangeBar">
+        <attr name="tickCount" format="integer" />
+        <attr name="tickHeight" format="dimension" />
+        <attr name="barWeight" format="dimension" />
+        <attr name="barColor" format="reference|color" />
+        <attr name="connectingLineWeight" format="dimension" />
+        <attr name="connectingLineColor" format="reference|color" />
+        <attr name="thumbRadius" format="dimension" />
+        <attr name="thumbImageNormal" format="reference" />
+        <attr name="thumbImagePressed" format="reference" />
+        <attr name="thumbColorNormal" format="reference|color"/>
+        <attr name="thumbColorPressed" format="reference|color"/>
+    </declare-styleable>
+</resources>

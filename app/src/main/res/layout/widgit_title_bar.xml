@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_root_view"
+    android:layout_width="match_parent"
+    android:background="@color/black_17171f"
+    android:layout_height="55dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_left_btn_click"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/iv_left_image"
+            android:layout_width="9dp"
+            android:layout_height="17dp"
+            android:background="@mipmap/arr_left_white" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:ellipsize="middle"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="我是标题" />
+
+
+    <TextView
+        android:id="@+id/tv_right_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        tools:text="默认右标题" />
+
+    <RelativeLayout
+        android:id="@+id/rl_right_btn_click"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_right_image"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:background="@mipmap/icon_share_white" />
+    </RelativeLayout>
+</RelativeLayout>

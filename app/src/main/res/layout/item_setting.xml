@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_item_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black_17171f"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view_btm_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/black_2a2e39" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="49dp">
+
+        <TextView
+            android:id="@+id/tv_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            tools:text="左边信息" />
+
+
+        <TextView
+            android:id="@+id/tv_right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="35dp"
+            android:textColor="@color/gray_767887"
+            android:textSize="13sp"
+            tools:text="左边信息" />
+
+        <ImageView
+            android:id="@+id/iv_arr"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@mipmap/arr_right_gray" />
+
+        <!--<Switch
+            android:id="@+id/switch_tip"
+            android:layout_width="56dp"
+            android:layout_height="0dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:thumb="@drawable/switch_thumb"
+            android:track="@drawable/switch_track"
+            android:visibility="gone"
+            tools:visibility="gone" />-->
+    </RelativeLayout>
+
+</LinearLayout>

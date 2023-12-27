@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.VideoExpert" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_3F74F6</item>
+        <item name="colorPrimaryVariant">@color/blue_3F74F6</item>
+        <item name="colorOnPrimary">@color/black_23234c</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black_23234c</item>
+        <item name="colorSecondaryVariant">@color/gray_9ba0a2</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/viewHalfTrans"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:alpha="0.4"
+        android:background="@color/black_061317"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivPlayState"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@mipmap/video_paly"
+        app:layout_constraintBottom_toBottomOf="@+id/viewStartAndPauseClick"
+        app:layout_constraintEnd_toEndOf="@+id/viewStartAndPauseClick"
+        app:layout_constraintStart_toStartOf="@+id/viewStartAndPauseClick"
+        app:layout_constraintTop_toTopOf="@+id/viewStartAndPauseClick" />
+
+    <View
+        android:id="@+id/viewStartAndPauseClick"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:progress="0"
+        android:progressBackgroundTint="@color/gray_9ba0a2"
+        android:progressTint="@color/white"
+        android:thumbTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/viewHalfTrans"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotalPlayTime"
+        app:layout_constraintStart_toEndOf="@+id/tvCurrentPlayTime"
+        app:layout_constraintTop_toTopOf="@+id/viewHalfTrans" />
+
+    <TextView
+        android:id="@+id/tvCurrentPlayTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:06"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewHalfTrans"
+        app:layout_constraintStart_toStartOf="@+id/viewHalfTrans"
+        app:layout_constraintTop_toTopOf="@+id/viewHalfTrans" />
+
+    <TextView
+        android:id="@+id/tvTotalPlayTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="00:06"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/viewHalfTrans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/viewHalfTrans" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/groupController"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="viewHalfTrans,ivPlayState,viewStartAndPauseClick,seekBar,tvCurrentPlayTime,tvTotalPlayTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>

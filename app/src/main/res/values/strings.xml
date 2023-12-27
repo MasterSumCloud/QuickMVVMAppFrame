@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">APP基础框架</string>
+    <string name="wechat_not_install">请安装微信</string>
+    <string name="home_tab1">首页</string>
+    <string name="home_tab2">VIP</string>
+    <string name="home_tab3">我的</string>
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
+</resources>

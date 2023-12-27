@@ -1,0 +1,55 @@
+package com.demo.appframe.widget.camera
+
+
+interface ICameraController {
+    /**
+     * 打开相机
+     */
+    fun openCameraPreView()
+
+    /**
+     * 录像
+     */
+    fun takePhoto()
+
+    /**
+     * 拍照
+     */
+    fun takeVideo()
+
+    /**
+     * 聚焦
+     */
+    fun focus(x: Float, y: Float, auto: Boolean)
+
+    /**
+     * 切换镜头
+     */
+
+    fun switchCamera()
+
+    /**
+     * 缩放
+     */
+    fun zoom(out: Boolean): Float?
+
+    /**
+     * 设置分辨率
+     */
+    fun setResolution()
+
+    /**
+     * 照明、补光
+     */
+    fun torchSwitch()
+
+    /**
+     * 闪光灯
+     */
+    fun splash()
+
+    /**
+     * 停止预览
+     */
+    fun stopPreview()
+}

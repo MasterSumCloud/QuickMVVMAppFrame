@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="36dp">
+
+    <SurfaceView
+        android:id="@+id/surfaceView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:progress="0"
+        android:progressBackgroundTint="@color/text_484c58"
+        android:progressTint="@color/white"
+        android:thumb="@drawable/thumb_seekbar_s10"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlayState"
+        app:layout_constraintEnd_toStartOf="@+id/tvTotalPlayTime"
+        app:layout_constraintStart_toEndOf="@+id/ivPlayState"
+        app:layout_constraintTop_toTopOf="@+id/ivPlayState" />
+
+    <TextView
+        android:id="@+id/tvCurrentPlayTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="00:00"
+        android:textColor="@color/gray_a5a8ac"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlayState"
+        app:layout_constraintStart_toEndOf="@+id/ivPlayState"
+        app:layout_constraintTop_toTopOf="@+id/ivPlayState" />
+
+    <TextView
+        android:id="@+id/tvTotalPlayTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:text="00:00"
+        android:textColor="@color/gray_a5a8ac"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/seekBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
+
+    <ImageView
+        android:id="@+id/ivPlayState"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="15dp"
+        android:background="@mipmap/play_round_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivBack5Secs"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@mipmap/audio_back_5secs"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlayState"
+        app:layout_constraintEnd_toStartOf="@+id/ivPlayState"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/ivPlayState" />
+
+    <ImageView
+        android:id="@+id/ivMove5Secs"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:background="@mipmap/audio_move_5secs"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/ivPlayState"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivPlayState"
+        app:layout_constraintTop_toTopOf="@+id/ivPlayState" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

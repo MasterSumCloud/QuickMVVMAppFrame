@@ -1,0 +1,205 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+}
+
+android {
+    namespace 'com.demo.appframe'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.demo.appframe"
+        minSdk 24
+        targetSdk 32
+        versionCode 100
+        versionName "1.0.0"
+        flavorDimensions "default"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('/Users/video_expert.jks')
+            storePassword "vexpert123"//密钥文件密码
+            keyAlias "key0"//key别名
+            keyPassword "vexpert123"//key密码
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+
+        release {
+            storeFile file('/Users/video_expert.jks')
+            storePassword "vexpert123"//密钥文件密码
+            keyAlias "key0"//key别名
+            keyPassword "vexpert123"//key密码
+
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
+    productFlavors {
+        guanwang {}
+        productFlavors.all { flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name] }
+    }
+    //配置自定义打包名称
+    applicationVariants.all { variant ->
+        def buildType = variant.buildType.name
+        def channel = variant.productFlavors[0].name
+        if ('huawei'.equals(channel)) {
+            channel = "华为"
+        } else if ('xiaomi'.equals(channel)) {
+            channel = "小米"
+        } else if ('yingyongbao'.equals(channel)) {
+            channel = "应用宝"
+        }
+        def path = channel + "_" + variant.versionName + ".apk"
+        variant.outputs.forEach {
+            if (buildType == "release") {
+                it.outputFileName = path
+            }
+        }
+    }
+
+    defaultConfig {
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+        }
+
+        //数据库配置 千万不要动 否则以后升级就GG了
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/room".toString()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures.dataBinding = true
+
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    //util
+    implementation 'com.blankj:utilcodex:1.31.0'
+    // 友盟统计SDK
+    implementation 'com.umeng.umsdk:common:9.4.7'// 必选
+    implementation 'com.umeng.umsdk:asms:1.4.1'// 必选
+    implementation 'com.umeng.umsdk:apm:1.7.0'// 错误分析模块改为独立库，看crash和性能数
+    //RecyclerView adapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+    //event bus
+    implementation("org.greenrobot:eventbus:3.3.1")
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    implementation 'androidx.databinding:databinding-runtime:7.1.2'
+
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
+    //rxjava
+    implementation "io.reactivex.rxjava3:rxjava:3.1.5"
+    //rxandroid
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+    implementation("com.squareup.okhttp3:okhttp:4.10.0")
+    //gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+    //autosize
+    implementation 'com.github.JessYanCoding:AndroidAutoSize:v1.2.1'
+    //swip
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    //recyclerview
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
+    //kotlin 协程
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    //点击效果
+    implementation 'com.github.likaiyuan559:TouchEffects:0.4.1'
+    //阿里一键登录
+    implementation(name: 'auth_number_product-2.12.7.1-log-online-standard-release', ext: 'aar')
+    implementation(name: 'main-2.1.4-release', ext: 'aar')
+    implementation(name: 'logger-2.1.4-release', ext: 'aar')
+    //阿里TTS语音库
+    implementation(name: 'nuisdk-release', ext: 'aar')
+    //阿里云播放器
+    implementation(name: 'AliyunPlayer-5.5.4.0-full', ext: 'aar')
+    //aili and wechat
+    implementation 'com.alipay.sdk:alipaysdk-android:+@aar'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android:+'
+    //cookie
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation 'me.jessyan:retrofit-url-manager:1.4.0'
+    // 友盟统计SDK
+    implementation 'com.umeng.umsdk:common:9.4.7'// 必选
+    implementation 'com.umeng.umsdk:asms:1.4.1'// 必选
+    implementation 'com.umeng.umsdk:apm:1.7.0'// 错误分析模块改为独立库，看crash和性能数
+    //bugly
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release'
+    //for db room
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
+    // optional - RxJava3 support for Room
+    implementation "androidx.room:room-rxjava3:2.5.0"
+    //gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.+'
+    //ffmpeg
+//    implementation 'com.arthenica:ffmpeg-kit-full-gpl:6.0-2'
+//    implementation 'com.github.rtugeek:colorseekbar:2.0.3'
+
+    // CameraX core library using the camera2 implementation
+    def camerax_version = "1.2.1"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX VideoCapture library
+    implementation "androidx.camera:camera-video:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-view:${camerax_version}"
+    // If you want to additionally add CameraX ML Kit Vision Integration
+    implementation "androidx.camera:camera-mlkit-vision:1.2.0-beta02"
+    // If you want to additionally use the CameraX Extensions library
+    implementation "androidx.camera:camera-extensions:${camerax_version}"
+
+
+}

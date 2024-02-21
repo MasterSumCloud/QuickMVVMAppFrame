@@ -165,6 +165,7 @@ class App : Application() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+                mPhoneNumberAuthHelper?.quitLoginPage()
             }
         }
         mPhoneNumberAuthHelper = PhoneNumberAuthHelper.getInstance(this, mTokenResultListener)

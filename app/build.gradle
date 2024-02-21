@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.demo.appframe"
         minSdk 24
-        targetSdk 32
+        targetSdk 33
         versionCode 100
         versionName "1.0.0"
         flavorDimensions "default"
@@ -153,9 +153,9 @@ dependencies {
     //点击效果
     implementation 'com.github.likaiyuan559:TouchEffects:0.4.1'
     //阿里一键登录
-    implementation(name: 'auth_number_product-2.12.7.1-log-online-standard-release', ext: 'aar')
-    implementation(name: 'main-2.1.4-release', ext: 'aar')
-    implementation(name: 'logger-2.1.4-release', ext: 'aar')
+    implementation(name: 'auth_number_product-2.13.2.1-log-online-standard-cuum-release', ext: 'aar')
+    implementation(name: 'main-2.2.1-release', ext: 'aar')
+    implementation(name: 'logger-2.2.1-release', ext: 'aar')
     //阿里TTS语音库
     implementation(name: 'nuisdk-release', ext: 'aar')
     //阿里云播放器
@@ -201,5 +201,7 @@ dependencies {
     // If you want to additionally use the CameraX Extensions library
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 
-
+    //glide transformation
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

@@ -11,7 +11,9 @@ import com.demo.appframe.ext.isNotEmptyOrNull
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 import java.io.File
 
 
@@ -98,6 +100,24 @@ class GlideUtil {
             Glide.with(imageView.context).load(File(imagePath)).fitCenter().dontAnimate()
                 .diskCacheStrategy(
                     DiskCacheStrategy.NONE
+                ).into(imageView)
+        }
+    }
+
+    fun dspImageCorner(url: String?, imageView: ImageView, corner: Int) {
+        if (mContext.isValid()) {
+            Glide.with(mContext).load(url).fitCenter().error(R.mipmap.header_ofmy_default)
+                .dontAnimate().transform(RoundedCorners(GeneralUtil.getScreentPointOfApp().times(corner).toInt())).diskCacheStrategy(
+                    DiskCacheStrategy.AUTOMATIC
+                ).into(imageView)
+        }
+    }
+
+    fun dspImageCornerCustom(url: String?, imageView: ImageView, corner: Int, type: RoundedCornersTransformation.CornerType) {
+        if (mContext.isValid()) {
+            Glide.with(mContext).load(url).fitCenter().error(R.mipmap.header_ofmy_default)
+                .dontAnimate().transform(RoundedCornersTransformation(corner, 0, type)).diskCacheStrategy(
+                    DiskCacheStrategy.AUTOMATIC
                 ).into(imageView)
         }
     }

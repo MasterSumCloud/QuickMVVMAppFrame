@@ -150,7 +150,7 @@ abstract class BaseVMActivity<VM : BaseViewModel, VB : ViewDataBinding> : BaseAc
         mLastClickView = v
         mLastClickTime = nowMills
         when (v.id) {
-            R.id.btn_re_load -> ReloadData()
+            R.id.btn_re_load -> reloadData()
         }
     }
 
@@ -180,7 +180,7 @@ abstract class BaseVMActivity<VM : BaseViewModel, VB : ViewDataBinding> : BaseAc
         selfVM.login(event.type, messageEvent.message)
     }
 
-    fun ReloadData() {}
+    fun reloadData() {}
 
     //设置必要的配置
     protected abstract fun initSelfConfig()

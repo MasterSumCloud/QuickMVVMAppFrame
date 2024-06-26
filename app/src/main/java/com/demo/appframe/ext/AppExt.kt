@@ -12,7 +12,6 @@ import com.demo.appframe.base.BaseVMActivity
 import com.demo.appframe.base.BaseVMFragment
 import com.demo.appframe.util.GeneralUtil
 import com.demo.appframe.util.Tos
-import com.chad.library.adapter.base.BaseQuickAdapter
 
 fun BaseVMActivity<*, *>.setViewClicks(vararg view: View) {
     for (v in view) {
@@ -36,8 +35,8 @@ fun Fragment.setViewClicks(vararg view: View, onClick: View.OnClickListener) {
     }
 }
 
-fun BaseQuickAdapter<*, *>.getColor(color: Int): Int {
-    return ContextCompat.getColor(context, color)
+fun BaseVMFragment<*, *>.getColor(color: Int): Int {
+    return context?.let { ContextCompat.getColor(it, color) } ?: 0
 }
 
 fun String?.isNotEmptyOrNull(): Boolean {

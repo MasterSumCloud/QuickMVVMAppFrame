@@ -22,7 +22,7 @@ import java.io.File
 
 class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
     private var typeOfAct: Int = 0
-    private val allFileAdapter = VideoAndImageAdapter(null)
+    private val allFileAdapter = VideoAndImageAdapter()
     override fun initSelfConfig() {
         setStateBarColor(false, R.color.black_17171f)
         getTitleBar().setRightTitleText("确定")
@@ -45,15 +45,18 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
         }*/
         allFileAdapter.setOnItemClickListener { _, _, position ->
             val item = allFileAdapter.getItem(position)
-            if (!File(item.path).exists()) {
-                "文件不存在了".toastShort()
-                return@setOnItemClickListener
+            item?.let {
+                if (!File(item.path).exists()) {
+                    "文件不存在了".toastShort()
+                    return@setOnItemClickListener
+                }
+                allFileAdapter.items.forEach {
+                    it.select = false
+                }
+                item.select = true
+                allFileAdapter.notifyDataSetChanged()
             }
-            allFileAdapter.data.forEach {
-                it.select = false
-            }
-            item.select = true
-            allFileAdapter.notifyDataSetChanged()
+
         }
 
     }
@@ -73,7 +76,7 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
         GlobalScope.launch(Dispatchers.IO) {
             val listData = GeneralUtil.getAllVIFiles(this@AllVIFileAct, typeOfAct)
             withContext(Dispatchers.Main) {
-                allFileAdapter.setList(listData)
+                allFileAdapter.submitList(listData)
             }
 //            selfVM.allFileData.set(listData)
         }
@@ -87,7 +90,7 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
     override fun normalClick(v: View?) {
         when (v?.id) {
             R.id.tv_right_title -> {
-                val selectList = allFileAdapter.data.filter { it.select }
+                val selectList = allFileAdapter.items.filter { it.select }
                 if (selectList.isNotEmpty()) {
                     setResult(RESULT_OK, Intent().setData(Uri.fromFile(File(selectList[0].path))))
                     finish()

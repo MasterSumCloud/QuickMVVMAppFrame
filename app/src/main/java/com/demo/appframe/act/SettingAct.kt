@@ -11,12 +11,10 @@ import com.demo.appframe.dialog.TextDialog
 import com.demo.appframe.ext.init
 import com.demo.appframe.ext.observe
 import com.demo.appframe.vm.SettingActVM
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 
 class SettingAct : BaseVMActivity<SettingActVM, ActSettingBinding>() {
 
-    private val adapterSetting = SettingItemAdapter(null)
+    private val adapterSetting = SettingItemAdapter()
     private lateinit var unRegistTxDialog: TextDialog
 
     override fun onSelfMessageEvent(messageEvent: BaseMessageEvent?) {
@@ -34,15 +32,14 @@ class SettingAct : BaseVMActivity<SettingActVM, ActSettingBinding>() {
     }
 
     override fun initSelfViews() {
-        adapterSetting.setNewInstance(selfVM.itemFuncList.get())
+        adapterSetting.submitList(selfVM.itemFuncList.get())
         selfVB.recyclerView.init(adapterSetting)
     }
 
     override fun initSelfListener() {
-
-        adapterSetting.setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-                val setBean = adapterSetting.getItem(position)
+        adapterSetting.setOnItemClickListener { _, _, position ->
+            val setBean = adapterSetting.getItem(position)
+            setBean?.let {
                 when (setBean.text) {
                     "清理缓存" -> {
                         CacheDiskStaticUtils.clear()
@@ -67,7 +64,8 @@ class SettingAct : BaseVMActivity<SettingActVM, ActSettingBinding>() {
 //                    "个性化推送" -> {}
                 }
             }
-        })
+        }
+
 
         selfVM.outLoginOrUnregist.observe {
             if (it) {

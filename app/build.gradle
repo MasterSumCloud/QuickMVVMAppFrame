@@ -118,7 +118,7 @@ dependencies {
     implementation 'com.umeng.umsdk:asms:1.4.1'// 必选
     implementation 'com.umeng.umsdk:apm:1.7.0'// 错误分析模块改为独立库，看crash和性能数
     //RecyclerView adapter
-    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+    implementation "io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.1.4"
     //event bus
     implementation("org.greenrobot:eventbus:3.3.1")
     //glide
@@ -143,7 +143,7 @@ dependencies {
     //swip
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     //recyclerview
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
+    implementation "androidx.recyclerview:recyclerview:1.3.2"
     // For control over item selection of both touch and mouse driven selection
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     //kotlin 协程

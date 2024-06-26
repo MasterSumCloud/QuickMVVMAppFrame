@@ -1,37 +1,18 @@
 package com.demo.appframe.adp
 
+import android.content.Context
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.chad.library.adapter4.BaseQuickAdapter
+import com.chad.library.adapter4.viewholder.QuickViewHolder
 import com.demo.appframe.R
 import com.demo.appframe.beans.MediaFile
 import com.demo.appframe.util.GlideUtil
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
-class VideoAndImageAdapter(data: MutableList<MediaFile>?) :
-    BaseQuickAdapter<MediaFile, BaseViewHolder>(R.layout.item_video_image_file, data) {
-    override fun convert(holder: BaseViewHolder, item: MediaFile) {
-        val ivCover = holder.getView<ImageView>(R.id.ivCover)
-        if (item.mediaType == 1) {
-            GlideUtil(context).dspVideo1Image(item.path, ivCover)
-        } else {
-            GlideUtil(context).dspImage(item.path, ivCover)
-        }
-        val tvDura = holder.getView<TextView>(R.id.tvDuration)
-        if (item.duration > 0) {
-            tvDura.visibility = View.VISIBLE
-            tvDura.text = calculateTime(item.duration.div(1000))
-        } else {
-            tvDura.visibility = View.GONE
-        }
-        val ivSelect = holder.getView<ImageView>(R.id.ivSelect)
-        if (item.select) {
-            ivSelect.setImageResource(R.mipmap.vi_select)
-        } else {
-            ivSelect.setImageResource(R.mipmap.vi_nselect)
-        }
-    }
+class VideoAndImageAdapter() :
+    BaseQuickAdapter<MediaFile, QuickViewHolder>() {
 
     private fun calculateTime(time: Long): String {
         val minute: Long
@@ -63,5 +44,33 @@ class VideoAndImageAdapter(data: MutableList<MediaFile>?) :
                 "00:$second"
             }
         }
+    }
+
+    override fun onBindViewHolder(holder: QuickViewHolder, position: Int, item: MediaFile?) {
+        if (item != null) {
+            val ivCover = holder.getView<ImageView>(R.id.ivCover)
+            if (item.mediaType == 1) {
+                GlideUtil(context).dspVideo1Image(item.path, ivCover)
+            } else {
+                GlideUtil(context).dspImage(item.path, ivCover)
+            }
+            val tvDura = holder.getView<TextView>(R.id.tvDuration)
+            if (item.duration > 0) {
+                tvDura.visibility = View.VISIBLE
+                tvDura.text = calculateTime(item.duration.div(1000))
+            } else {
+                tvDura.visibility = View.GONE
+            }
+            val ivSelect = holder.getView<ImageView>(R.id.ivSelect)
+            if (item.select) {
+                ivSelect.setImageResource(R.mipmap.vi_select)
+            } else {
+                ivSelect.setImageResource(R.mipmap.vi_nselect)
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(context: Context, parent: ViewGroup, viewType: Int): QuickViewHolder {
+        return QuickViewHolder(R.layout.item_video_image_file, parent)
     }
 }

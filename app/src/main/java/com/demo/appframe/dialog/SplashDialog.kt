@@ -44,7 +44,7 @@ class SplashDialog(context: Context) : BaseDialog(context) {
         cancle = findViewById<TextView>(R.id.tv_disagree)
         val tvAppInfo = findViewById<TextView>(R.id.tv_app_intro)
         val appName = context.getString(R.string.app_name)
-        val start = 53
+        val start = 46 + appName.length
         val spannableString = SpannableString(
             "我们依据法律法规收集、使用个人信息。在使用“$appName”软件及相关服务前，请您务必仔细阅读并理解我们的《用户协议》及《隐私政策》。您一旦选择“同意”，即意味着您授权我们收集、保存使用、共享、披露及保护您的信息。"
         )
@@ -61,7 +61,7 @@ class SplashDialog(context: Context) : BaseDialog(context) {
                 super.updateDrawState(ds)
                 ds.color = ContextCompat.getColor(context, R.color.blue_3F74F6)
             }
-        }, start, start+6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }, start, start + 6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         spannableString.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -75,7 +75,7 @@ class SplashDialog(context: Context) : BaseDialog(context) {
                 super.updateDrawState(ds)
                 ds.color = ContextCompat.getColor(context, R.color.blue_3F74F6)
             }
-        }, start+7, start+13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }, start + 7, start + 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
         tvAppInfo.append(spannableString)
         tvAppInfo.setHintTextColor(ContextCompat.getColor(context, R.color.trans))

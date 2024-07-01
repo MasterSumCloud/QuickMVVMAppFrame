@@ -3,6 +3,7 @@ package com.demo.appframe.base
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -216,17 +217,23 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     open fun reqRWPermission() {
-        val granted = PermissionUtils.isGranted(
-            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+        val granted = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            PermissionUtils.isGranted(
+                Manifest.permission.READ_MEDIA_IMAGES,
+                Manifest.permission.READ_MEDIA_VIDEO,
+                Manifest.permission.READ_MEDIA_AUDIO,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        } else {
+            PermissionUtils.isGranted(
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        }
         if (!granted) {
             externalDialog.showTextDialog("您当前使用的功能需要存储权限，目的是方便您选择文件后能正常的进行编辑和处理，若拒绝该权限将无法正常使用哦。",
                 object : TextDialog.onTextDialogBtnListener {
                     override fun onClickOk() {
-                        PermissionUtils.permission(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ).callback(object : PermissionUtils.SimpleCallback {
+                        val callback = object : PermissionUtils.SimpleCallback {
                             override fun onGranted() {
                                 onRWGranted()
                             }
@@ -234,7 +241,29 @@ abstract class BaseActivity : AppCompatActivity() {
                             override fun onDenied() {
                                 "您拒绝了存储权限，无法为您提供识别服务".toastShort()
                             }
-                        }).request()
+                        }
+                        /*val callback = object :PermissionUtils.FullCallback{
+                            override fun onGranted(granted: MutableList<String>) {
+                                onRWGranted()
+                            }
+
+                            override fun onDenied(deniedForever: MutableList<String>, denied: MutableList<String>) {
+                                "您拒绝了存储权限，无法为您提供识别服务".toastShort()
+                            }
+                        }*/
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            PermissionUtils.permission(
+                                Manifest.permission.READ_MEDIA_IMAGES,
+                                Manifest.permission.READ_MEDIA_VIDEO,
+                                Manifest.permission.READ_MEDIA_AUDIO,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            ).callback(callback).request()
+                        } else {
+                            PermissionUtils.permission(
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                            ).callback(callback).request()
+                        }
                     }
 
                     override fun onClickCancel() {

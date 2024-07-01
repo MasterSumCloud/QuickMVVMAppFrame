@@ -38,11 +38,6 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
 
     override fun initSelfListener() {
         getTitleBar().setRightClickListener(this)
-        /*selfVM.allFileData.observe {
-            GlobalScope.launch(Dispatchers.Main) {
-                allFileAdapter.setList(it)
-            }
-        }*/
         allFileAdapter.setOnItemClickListener { _, _, position ->
             val item = allFileAdapter.getItem(position)
             item?.let {
@@ -68,7 +63,7 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
         } else {
             setTitleText("照片")
         }
-        getAllFiles()
+        reqRWPermission()
     }
 
     private fun getAllFiles() {
@@ -78,7 +73,6 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
             withContext(Dispatchers.Main) {
                 allFileAdapter.submitList(listData)
             }
-//            selfVM.allFileData.set(listData)
         }
         disLoading()
     }
@@ -102,6 +96,11 @@ class AllVIFileAct : BaseVMActivity<NoViewModel, ActViFileAllBinding>() {
 
     override fun onSelfMessageEvent(messageEvent: BaseMessageEvent?) {
 
+    }
+
+    override fun onRWGranted() {
+        super.onRWGranted()
+        getAllFiles()
     }
 
     override fun onDestroy() {

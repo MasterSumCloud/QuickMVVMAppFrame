@@ -19,26 +19,6 @@ class FrmMyVM : BaseViewModel() {
     val tablist = mutableListOf<MyActFunListItemBean>()
     val notifyHeader = ObservableField(0)
 
-    fun createFuncListData(): MutableList<MyActFunListItemBean> {
-        tablist.clear()
-        //header
-        tablist.add(MyActFunListItemBean(0, "", false, false).apply {
-            myfmHeaderData = MyfmHeaderData(userName.get(), userId.get(), headerImageUrl.get(), vipTime.get(), openVip.get())
-        })
-
-        tablist.add(MyActFunListItemBean(R.mipmap.myicon_service, "联系客服", true, false))
-        tablist.add(MyActFunListItemBean(R.mipmap.myicon_yhxy, "用户协议", true, false))
-        tablist.add(MyActFunListItemBean(R.mipmap.myicon_yszc, "隐私协议", true, false))
-        val getj = MyActFunListItemBean(R.mipmap.myicon_notify, "个性化推荐", false, true)
-        getj.switchChecked = SPUtil.getMessagePushState()
-        tablist.add(getj)
-        tablist.add(MyActFunListItemBean(R.mipmap.myicon_setting, "设置", true, false))
-        if (Toggles.isShowTesting) {
-            tablist.add(MyActFunListItemBean(R.mipmap.myicon_setting, "测试", true, false))
-        }
-        return tablist
-    }
-
     fun setLoginInfo() {
         if (App.isLogin) {
             val info = App.myActInfo

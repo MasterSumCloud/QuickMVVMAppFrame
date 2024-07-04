@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -156,20 +157,22 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
     }
 
     open fun reqCameraPermission() {
-        val granted = PermissionUtils.isGranted(
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA
-        )
+        val reqPermissions = mutableListOf<String>()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            reqPermissions.add(Manifest.permission.READ_MEDIA_IMAGES)
+        } else {
+            reqPermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+        reqPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        reqPermissions.add(Manifest.permission.CAMERA)
+
+        val granted = PermissionUtils.isGranted(*reqPermissions.toTypedArray())
+
         if (!granted) {
             cameraDialog.showTextDialog("您当前使用的功能需要相机和存储权限，目的是方便您拍摄照片后的存储和编辑，若拒绝该权限将无法正常使用哦。",
                 object : TextDialog.onTextDialogBtnListener {
                     override fun onClickOk() {
-                        PermissionUtils.permission(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA
-                        ).callback(object : PermissionUtils.SimpleCallback {
+                        PermissionUtils.permission(*reqPermissions.toTypedArray()).callback(object : PermissionUtils.SimpleCallback {
                             override fun onGranted() {
                                 onCameraGranted()
                             }
@@ -189,18 +192,40 @@ abstract class BaseFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    open fun reqRWPermission() {
-        val granted = PermissionUtils.isGranted(
-            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
+    open fun reqRWPermission(type: Int = 0) {
+        val requsPermissions = mutableListOf<String>()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            when (type) {
+                0 -> {//default for all
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_IMAGES)
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_VIDEO)
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_AUDIO)
+                }
+
+                1 -> {//image
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_IMAGES)
+                }
+
+                2 -> {//video
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_VIDEO)
+                }
+
+                3 -> {//audio
+                    requsPermissions.add(Manifest.permission.READ_MEDIA_AUDIO)
+                }
+            }
+        } else {
+            requsPermissions.add(Manifest.permission.READ_EXTERNAL_STORAGE)
+        }
+        requsPermissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+        val granted = PermissionUtils.isGranted(*requsPermissions.toTypedArray())
+
         if (!granted) {
             externalDialog.showTextDialog("您当前使用的功能需要存储权限，目的是方便您选择文件后能正常的进行编辑和处理，若拒绝该权限将无法正常使用哦。",
                 object : TextDialog.onTextDialogBtnListener {
                     override fun onClickOk() {
-                        PermissionUtils.permission(
-                            Manifest.permission.READ_EXTERNAL_STORAGE,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ).callback(object : PermissionUtils.SimpleCallback {
+                        PermissionUtils.permission(*requsPermissions.toTypedArray()).callback(object : PermissionUtils.SimpleCallback {
                             override fun onGranted() {
                                 onRWGranted()
                             }

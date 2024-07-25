@@ -237,11 +237,22 @@ fun singleItem(ctx: Context, item: MyItem) {
     }
 }
 
-@Preview
+
 @Composable
 fun itemShow() {
     val ctx = LocalContext.current
     singleItem(ctx, MyItem(R.mipmap.myicon_notify, "方法名称", false, true))
+}
+
+@Preview
+@Composable
+fun holePre(){
+    MyUI(
+        modifierUI = Modifier
+            .fillMaxHeight()
+            .fillMaxWidth()
+            .background(color = Color.LightGray)
+    )
 }
 
 private val myfmlist = mutableListOf<MyItem>().apply {
